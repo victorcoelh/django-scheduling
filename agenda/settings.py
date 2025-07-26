@@ -60,6 +60,16 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME_LATE_USER': timedelta(days=30),
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        }
+    }
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -99,7 +109,7 @@ DATABASES = {
         "NAME": "catskillet",
         "USER": "admin",
         "PASSWORD": "admin",
-        "HOST": "localhost",
+        "HOST": "postgres",
         "PORT": "5432",
     }
 }
@@ -123,22 +133,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# E-Mail configs
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+EMAIL_HOST_USER = '9ce759b6354519'
+EMAIL_HOST_PASSWORD = 'e82848120f9273'
+EMAIL_PORT = 2525
+EMAIL_USE_TLS = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 DATE_INPUT_FORMATS = ["%d/%m/%Y"]
-
 USE_I18N = True
-
 USE_L10N = False
-
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
@@ -149,3 +160,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Celery
+CELERY_BROKER_URL = 'redis://localhost:6379/0'

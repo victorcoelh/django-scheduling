@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import TaskDetailView, TaskListView, RegisterView, ScheduleView
+from api.views import TaskDetailView, TaskListView, RegisterView, ScheduleView
 
 
 urlpatterns = [
