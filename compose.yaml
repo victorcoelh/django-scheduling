@@ -25,4 +25,4 @@ services:
     build: .
     depends_on:
       - redis
-    command: ["celery", "-A", "agenda", "worker", "--loglevel=info"]
+    command: ["uv", "run", "celery", "-A", "agenda", "worker", "--loglevel=info"]
