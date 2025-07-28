@@ -6,6 +6,8 @@ services:
     depends_on:
       - redis
       - postgres
+    env_file:
+      - .env
 
   redis:
     image: redis:alpine
@@ -26,3 +28,5 @@ services:
     depends_on:
       - redis
     command: ["uv", "run", "celery", "-A", "agenda", "worker", "--loglevel=info"]
+    env_file:
+    - .env

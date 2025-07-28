@@ -11,6 +11,8 @@ https://docs.docker.com/get-started/get-docker/
 
 ## Usage
 
+Before attempting to run the server, you should first create a .env file populated with the variables present in ```template.env```. Default values are provided for some variables.
+
 On a Linux System, open a terminal application such as Bash or Zsh, and run the following command to build the app's Docker Image:
 ```sudo docker compose build```
 

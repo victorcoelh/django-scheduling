@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 from datetime import timedelta
 
@@ -21,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ocnjz2y^y8j53lftxp$#%mbj#or-x+mufk!grdoi8gvy1m%sjq'
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "insecure-default-key")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -107,9 +108,9 @@ WSGI_APPLICATION = 'agenda.wsgi.application'
 DATABASES = {
     'default': {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "catskillet",
-        "USER": "admin",
-        "PASSWORD": "admin",
+        "NAME": os.getenv("POSTGRES_DB", "db_name"),
+        "USER": os.getenv("POSTGRES_USER", "admin"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "admin"),
         "HOST": "postgres",
         "PORT": "5432",
     }
@@ -135,18 +136,18 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # E-Mail configs
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-EMAIL_HOST_USER = '9ce759b6354519'
-EMAIL_HOST_PASSWORD = 'e82848120f9273'
-EMAIL_PORT = 2525
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.mailtrap.io")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = os.getenv("EMAIL_PORT", 2525)
 EMAIL_USE_TLS = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+LANGUAGE_CODE = "en-us"
+TIME_ZONE = "UTC"
 DATE_INPUT_FORMATS = ["%d/%m/%Y"]
 USE_I18N = True
 USE_L10N = False
@@ -155,12 +156,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Celery
-CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_BROKER_URL = "redis://redis:6379/0"
